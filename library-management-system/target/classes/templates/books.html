@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header>
+    <h1>Books</h1>
+</header>
+<div class="container">
+    <form action="/books" method="get">
+        <input type="text" name="search" placeholder="Search by name"/>
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        <li th:each="book : ${books}">
+            <div>
+                <span th:text="${book.name}">Book Name</span>
+                <span th:text="${book.author}">Author Name</span>
+                <span th:text="${book.price}">Price</span>
+            </div>
+            <div>
+                <a th:href="@{/books/{id}(id=${book.id})}">Details</a>
+                <form th:action="@{/books/{id}(id=${book.id})}" method="post" style="display: inline;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+    <a href="/books/add">Add Book</a><br>
+    <a href="/books">Back to Books</a>
+</div>
+<footer>
+    Library Management System
+</footer>
+</body>
+</html>
